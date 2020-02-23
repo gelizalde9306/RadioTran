@@ -100,6 +100,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
           </div>
         </div>
+        
         <div class="input-group mb-3">
           <input type="tel" class="form-control" placeholder="Ingrese su telefono" name="nuevoTelefono"   pattern="[0-9]{10}" required>
           <div class="input-group-append">
