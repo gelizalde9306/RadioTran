@@ -4,6 +4,10 @@
 
     class ModeloUsuarios{
 
+       
+        /*************************************************************************/
+        // FUNCION DEL MODELO PARA MOSTRAR LOS USUARIOS DE LA BD
+        /**************************************************************************/
         static public function MostrarUsuarios($tabla, $itemA, $valorA ){
 
             if($itemA != null){
@@ -20,6 +24,9 @@
             $stmt = null;
         }
 
+        /*************************************************************************/
+        // FUNCION DEL MODELO PARA REGISTRAR USUARIOS EN LA BD
+        /**************************************************************************/
         static public function RegistrarUsuarios($tabla, $datos ){
             $stmt = Conexion::conectar()->prepare("INSERT INTO  $tabla(nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, telefono, foto, estatus, id_perfil)values(:nombre, :apellidoPaterno, :apellidoMaterno, :correo, :contrasenia, :telefono, :foto, :estatus, :perfil)");
             $stmt->bindParam("nombre", $datos["nombre"],PDO::PARAM_STR) ;
@@ -43,6 +50,9 @@
             $stmt = null;
         }
 
+        /*************************************************************************/
+        // FUNCION DEL MODELO PARA EDITAR USUARIOS EN LA BD
+        /**************************************************************************/
         static public function editarUsuario($tabla, $datos){
 	
             $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre,  foto = :foto , apellidoPaterno = :apellidoPaterno , apellidoMaterno = :apellidoMaterno , telefono = :telefono WHERE correo = :correo");
@@ -70,6 +80,10 @@
     
         }
 
+         /*************************************************************************/
+        // FUNCION DEL MODELO PARA ACTUALIZAR USUARIOS EN LA BD
+        /**************************************************************************/
+
         static public function actualizarUsuario($tabla, $itemA, $valorA, $itemB, $valorB,$itemC, $valorC){
 	
             $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $itemA = :itemA ,  $itemC = :itemC where  $itemB = :itemB");
@@ -95,10 +109,9 @@
             $stmt = null;
     
         }
-
-    /*=============================================
-	BORRAR USUARIO
-	=============================================*/
+ /*************************************************************************/
+        // FUNCION DEL MODELO PARA BORRAR USUARIOS EN LA BD
+        /**************************************************************************/
 
 	static public function borrarUsuario($tabla1, $tabla2,$id){
 

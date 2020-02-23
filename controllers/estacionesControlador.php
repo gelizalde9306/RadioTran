@@ -2,6 +2,10 @@
 
     class estacionController{
 
+        /**********************************************/
+        //  FUNCIÓN DEL CONTROLADOR  PARA EL REGISTRO DE TRANSMISIONES
+        /**********************************************/
+
         static public function registrarTransmision(){
             if(isset($_POST["nombreTrans"])){
                 
@@ -67,12 +71,20 @@
             }
         }    
 
+        /**********************************************/
+        //  FUNCIÓN DEL CONTROLADOR PARA MOSTRAR LAS TRANSMISIONES
+        /**********************************************/
+
 
         static public function  mostrarEstaciones(){
             $tabla = 'transmisiones';
             $respuesta = ModeloTransmisiones::mostrarTransmisiones($tabla);
             return $respuesta;
         }
+
+        /***************************************************************/
+        //  FUNCIÓN DEL CONTROLADOR PARA MOSTRAR LAS TRANSMISIONES DE RADIO POR USUARIO
+        /****************************************************************/
 
         static public function  mostrarTransmisionesPorUsuario(){
             $tabla = 'transmisiones';
@@ -81,6 +93,10 @@
             $respuesta = ModeloTransmisiones::mostrarTransmisiones($tabla,$item,$valor);
             return $respuesta;
         }
+
+        /*********************************************************/
+        //  FUNCIÓN DEL CONTROLADOR para borrar una Transmisión
+        /*********************************************************/
 
         static public function borrarTransmision(){
 

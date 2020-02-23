@@ -1,5 +1,9 @@
 <?php
     class usuarioController{
+
+        /*************************************************/
+        //  FUNCIÓN QUE VÁLIDA EL ACCESO A LA APLICACION
+        /*************************************************/
        static  public function validaIngresoUsuario(){
            if(isset($_POST["email"]) && isset($_POST["password"])  ){
                 $tabla = 'usuarios';
@@ -33,6 +37,10 @@
                 }
            }
         }
+        
+        /*************************************************/
+        //  FUNCIÓN QUE GUARDA EL REGISTRO DE USUARIOS
+        /*************************************************/
 
         static  public function guardaUsuarioNormal(){
             if (isset($_POST["nuevoUsuario"])){
@@ -160,6 +168,10 @@
                 }
             }
         }
+
+        /***************************************************************/
+        //  FUNCIÓN QUE GUARDA EL REGISTRO DE USUARIOS ADMINISTRADORES
+        /***************************************************************/
 
         static public function  crearUsuarioAdmin(){
             if (isset($_POST["nombre"])){
@@ -399,12 +411,21 @@
             
         }
 
+        /******************************************************/
+        //  FUNCIÓN QUE SIRVE PARA MOSTRAR TODOS LOS USUARIOS
+        /******************************************************/
+
         static public function  mostrarUsuarios($itemA, $valorA){
             $tabla = 'usuarios';
             $respuesta = ModeloUsuarios::MostrarUsuarios($tabla, $itemA, $valorA);
 
             return $respuesta;
         }
+
+            /******************************************************/
+        //  FUNCIÓN QUE SIRVE PARA EDITAR LOS DATOS DE LOS USUAIROS
+        /***********************************************************/
+
 
         static public function editarUsuario(){
             if (isset($_POST["editarNombre"])){
@@ -514,9 +535,10 @@
             }
         }
 
-        /*=============================================
-	BORRAR USUARIO
-	=============================================*/
+    /******************************************************/
+    //  FUNCIÓN PARA BORRAR LOS USUARIOS
+    /******************************************************/
+
 
 	static public function borrarUsuario(){
 
@@ -567,25 +589,5 @@
 
 	}
     
-    static public function borrarTransmision(){
-
-        if(isset($_GET["idTransmision"])){
-
-            
-            echo "<script>
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'Prueba!',
-                    }).then((result) => {
-                        if(result.value){
-                            window.location = 'inicio';
-                        }
-                    });
-                
-                    </script>";
-        }
-
-    }
     }
 ?>

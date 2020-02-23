@@ -6,7 +6,7 @@ require_once "../models/usuariosModel.php";
 class AjaxUsuarios{
 
 	/*=============================================
-	EDITAR USUARIO
+	FUNCIÓN PARA EDITAR USUARIO
 	=============================================*/	
 
 	public $idUsuario;
@@ -22,7 +22,7 @@ class AjaxUsuarios{
 	}
 
 	/*=============================================
-	ACTIVAR USUARIO
+	FUNCIÓN PARA ACTIVAR USUARIO
 	=============================================*/	
 
 	public $activarUsuario;
@@ -50,7 +50,7 @@ class AjaxUsuarios{
 	}
 
 	/*=============================================
-	VALIDAR NO REPETIR USUARIO
+	FUNCIÓN PARA VALIDAR NO REPETIR USUARIO
 	=============================================*/	
 
 	public $validarUsuario;
@@ -68,7 +68,7 @@ class AjaxUsuarios{
 }
 
 /*=============================================
-EDITAR USUARIO
+FUNCIÓN PARA EDITAR USUARIO
 =============================================*/
 if(isset($_POST["idUsuario"])){
 
@@ -79,7 +79,7 @@ if(isset($_POST["idUsuario"])){
 }
 
 /*=============================================
-ACTIVAR USUARIO
+FUNCIÓN PARA ACTIVAR USUARIO
 =============================================*/	
 
 if(isset($_POST["activarUsuario"])){
@@ -92,7 +92,7 @@ if(isset($_POST["activarUsuario"])){
 }
 
 /*=============================================
-VALIDAR NO REPETIR USUARIO
+FUNCIÓN PARA VALIDAR NO REPETIR USUARIO
 =============================================*/
 
 if(isset( $_POST["validarUsuario"])){

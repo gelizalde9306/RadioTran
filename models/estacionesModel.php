@@ -4,6 +4,9 @@
 
     class ModeloTransmisiones{
 
+        /*********************************************************/
+        // FUNCION DEL MODELO PARA INSERTAR TRANSMISIONES EN LA BD
+        /*********************************************************/
         static public function registrarTransmision($tabla, $datos ){
             $stmt = Conexion::conectar()->prepare("INSERT INTO  $tabla(id_usuario, nombre, descripcion, url, horario, fecha_creacion, estatus)values(:idUsuario, :nombre, :descripcion, :url, :horario, :fechaCreacion,:estatus)");
             $stmt->bindParam("idUsuario", $datos["idUsuario"],PDO::PARAM_STR) ;
@@ -24,6 +27,9 @@
             $stmt = null;
         }
 
+        /*********************************************************/
+        // FUNCION DEL MODELO PARA MOSTRAR TODAS LAS TRANSMISIONES EN LA BD
+        /*********************************************************/
 
         static public function mostrarTransmisiones($tabla){
             $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
@@ -33,6 +39,10 @@
             $stmt = null;
         }
 
+        /*************************************************************************/
+        // FUNCION DEL MODELO PARA MOSTRAR TODAS LAS TRANSMISIONES CREADAS POR USUARIO EN LA BD
+        /**************************************************************************/
+
         static public function mostrarTransmisionesPorUsuario($tabla,$item,$valor){
             $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla where $item = $valor");
             $stmt-> execute();
@@ -40,6 +50,10 @@
             $stmt -> close();
             $stmt = null;
         }
+
+        /*************************************************************************/
+        // FUNCION DEL MODELO PARA BORRAR TRANSMISIONESPOR ID LA BD
+        /**************************************************************************/
 
         static public function borrarTransmision($tabla1,$id){
 
