@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Incidencias La Comer</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.min.css">
@@ -49,6 +49,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="views/plugins/moment/moment.min.js"></script>
 <script src="views/plugins/daterangepicker/daterangepicker.js"></script>
 
+<!-- ChartJS -->
+<script src="views/plugins/chart.js/Chart.min.js"></script>
+
+
 <body class="hold-transition sidebar-mini" style="background: linear-gradient(rgba(0,0,0,1), rgb(0,30,50,1)););">
 <!--<div class="wrapper centrar">-->
 
@@ -68,7 +72,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               $_GET["ruta"] == "modificarTransmisiones"   ||
               $_GET["ruta"] == "modificarUsuarios" ||
               $_GET["ruta"] == "salir"||
-              $_GET["ruta"] == "listarTransmisiones"
+              $_GET["ruta"] == "listarTransmisiones" ||
+              $_GET["ruta"] == "registroIncidencia"  ||
+              $_GET["ruta"] == "estadisticasIncidencias"
               ){
                 include "modulos/".$_GET["ruta"].".php"; 
           }else{
@@ -97,6 +103,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="views/js/plantilla.js"></script>
 
 <script src="views/js/transmision.js"></script>
+
+<script src="views/js/estadisticas.js"></script>
 
 
 </body>

@@ -39,6 +39,20 @@
             $stmt = null;
         }
 
+         /*********************************************************/
+        // FUNCION DEL MODELO PARA MOSTRAR TODAS LAS TRANSMISIONES POR Id
+        /*********************************************************/
+        
+
+        static public function mostrarTransmisionesId($tabla,$id){
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla where id_transmision = :id_transmision");
+            $stmt->bindParam("id_transmision", $id,PDO::PARAM_STR) ; 
+            $stmt-> execute();
+            return $stmt -> fetch();
+            $stmt -> close();
+            $stmt = null;
+        }
+
         /*************************************************************************/
         // FUNCION DEL MODELO PARA MOSTRAR TODAS LAS TRANSMISIONES CREADAS POR USUARIO EN LA BD
         /**************************************************************************/

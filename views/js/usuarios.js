@@ -136,7 +136,7 @@ $(document).on("click", ".btnEliminarUsuario", function(){
     Swal.fire({
         title: '¿Está seguro de borrar el usuario?',
         text: "¡Si no lo está puede cancelar la accíón!",
-        icon: 'warning',
+        type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -144,7 +144,7 @@ $(document).on("click", ".btnEliminarUsuario", function(){
         confirmButtonText: 'Si, borrar usuario!'
       }).then((result) => {
         if (result.value) {
-            window.location = "index.php?ruta=listarUsuarios&idUsuario="+idUsuario+"&fotoUsuario="+fotoUsuario;
+            window.location = "index.php?ruta=listarUsuarios&idUsuarioElimina="+idUsuario+"&fotoUsuario="+fotoUsuario;
         }
       });
 

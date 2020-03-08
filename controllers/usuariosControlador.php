@@ -21,7 +21,7 @@
                         if($respuesta["estatus"]==1){
                             $_SESSION["iniciarSesion"] = "ok";
                             $_SESSION["foto"] = $respuesta["foto"] ;
-                            $_SESSION["nombreCompleto"] = $respuesta["nombre"] ." ".$respuesta["apellidoPaterno"] ." ". $respuesta["apellidoMaterno"];
+                            $_SESSION["correo"] = $respuesta["correo"];
                             $_SESSION["id"] = $respuesta["id_usuario"];
                         echo '<script>
                                     window.location = "inicio";
@@ -43,7 +43,7 @@
         /*************************************************/
 
         static  public function guardaUsuarioNormal(){
-            if (isset($_POST["nuevoUsuario"])){
+            if (isset($_POST["nuevoCorreo"])){
                 $tabla = 'usuarios';
                 $itemA = 'correo';
                 $valorA = $_POST["nuevoCorreo"];
@@ -104,10 +104,6 @@
                     
                     
                     $datos = array(
-                        "nombre" => $_POST["nuevoUsuario"],
-                        "apellidoPaterno" => $_POST["nuevoPaterno"],
-                        "apellidoMaterno" => $_POST["nuevoMaterno"],
-                        "telefono" => $_POST["nuevoTelefono"],
                         "correo" => $_POST["nuevoCorreo"],
                         "contrasenia" => $encripta,
                         "foto" => $ruta,
@@ -174,28 +170,43 @@
         /***************************************************************/
 
         static public function  crearUsuarioAdmin(){
-            if (isset($_POST["nombre"])){
+            if(isset($_POST["newEmail"])){
+
                 $tabla = 'usuarios';
                 $itemA = 'correo';
-                $valorA = $_POST["email"];
+                $valorA = $_POST["newEmail"];
+
                 $respuesta =  ModeloUsuarios::MostrarUsuarios($tabla, $itemA, $valorA);
                 
-                    
-                    if (is_bool($respuesta)){
-                        if(isset($_FILES["nuevaFoto"]["tmp_name"])){
-                        list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+                if (is_bool($respuesta)){
 
+                    if(isset($_FILES["nuevaFoto"]["tmp_name"])){
+
+                        list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+    
                         $nuevoAncho = 500;
                         $nuevoAlto = 500;
                         $identificador = gmdate('Ymdhis', time());
 
                         $directorio = "views/img/usuarios/$identificador";
-
+    
+                        /*=============================================
+                        CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
+                        =============================================*/
+    
+                       // $directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+    
                         mkdir($directorio, 0755);
-                        
+    
+                        /*=============================================
+                        DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+                        =============================================*/
+    
                         if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
-
-                            //GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+    
+                            /*=============================================
+                            GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+                            =============================================*/
     
                             $aleatorio = mt_rand(100,999);
     
@@ -213,11 +224,13 @@
     
                         if($_FILES["nuevaFoto"]["type"] == "image/png"){
     
-                            //GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                            
+                            /*=============================================
+                            GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+                            =============================================*/
+    
                             $aleatorio = mt_rand(100,999);
     
-                            $ruta = $directorio."/".$aleatorio.".png";
+                            $ruta = $directorio."/".$aleatorio.".jpg";
     
                             $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);						
     
@@ -228,27 +241,25 @@
                             imagepng($destino, $ruta);
     
                         }
-
-
+    
                     }
-                    
-                    $encripta = crypt($_POST["contrasenia"], '$2a$07$usesomesillystringforsalt$');
 
+                    $tabla = "usuarios";
+
+                    $encriptar = crypt($_POST["newPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+                    
                     $datos = array(
-                        "nombre" => $_POST["nombre"],
-                        "apellidoPaterno" => $_POST["apellidoPaterno"],
-                        "apellidoMaterno" => $_POST["apellidoMaterno"],
-                        "telefono" => $_POST["telefono"],
-                        "correo" => $_POST["email"],
+                        "correo" => $_POST["newEmail"],
                         "contrasenia" => $encripta,
                         "foto" => $ruta,
                         "perfil" => '1',
                         "estatus" => '1'
                     );
 
+
                     $respuesta = ModeloUsuarios::RegistrarUsuarios($tabla, $datos);
 
-                     if($respuesta == 'ok'){
+                    if($respuesta == 'ok'){
 
                         echo "<script>
 
@@ -281,6 +292,7 @@
 
                     }
 
+                
                 }else{
                     echo "<script>
                     Swal.fire({
@@ -293,245 +305,9 @@
                         }
                     });
                 
-                    </script>";  
+                    </script>"; 
                 }
-            
-            }   
-
-               /* if(isset($_FILES["nuevaFoto"]["tmp_name"])){
-
-                    list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
-
-					$nuevoAncho = 500;
-                    $nuevoAlto = 500;
-                    $identificador = gmdate('Ymdhis', time());
-
-			
-					//CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
-
-
-					$directorio = "views/img/usuarios/$identificador";
-
-					mkdir($directorio, 0755);
-
-					//DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-
-
-					if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
-
-						//GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-
-						$aleatorio = mt_rand(100,999);
-
-						$ruta = $directorio."/".$aleatorio.".jpg";
-
-						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);						
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagejpeg($destino, $ruta);
-
-					}
-
-					if($_FILES["nuevaFoto"]["type"] == "image/png"){
-
-						//GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-						
-						$aleatorio = mt_rand(100,999);
-
-						$ruta = $directorio."/".$aleatorio.".png";
-
-						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);						
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagepng($destino, $ruta);
-
-					}
-
-				}
-                
-                
-                $tabla = 'usuarios';
-
-                $datos = array(
-                    "nombre" => $_POST["nombre"],
-                    "apellidoPaterno" => $_POST["apellidoPaterno"],
-                    "apellidoMaterno" => $_POST["apellidoMaterno"],
-                    "telefono" => $_POST["telefono"],
-                    "correo" => $_POST["email"],
-                    "contrasenia" => sha1($_POST["password"]),
-                    "foto" => $ruta,
-                    "perfil" => '1',
-                    "estatus" => '1',
-                    "fechaCreacion" => 'NOW()'
-                );
-
-                $respuesta = ModeloUsuarios::RegistrarUsuarios($tabla, $datos);
-
-                if($respuesta == 'ok'){
-
-                    echo "<script>
-
-                    Swal.fire(
-                        'OK!',
-                        'Se registro correctamente el usuario!',
-                        'success'
-                    ).then((result) => {
-                        if(result.value){
-						
-							window.location = 'listarUsuarios';
-                        }
-                    });
-
-                    </script>";
-
-                }else{
-                    echo "<script>
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'Ocurrio un error al crear el usuario!',
-                    }).then((result) => {
-                        if(result.value){
-						    window.location = 'listarUsuarios';
-                        }
-                    });
-                
-                    </script>";
-
-                }*/
-
-                
-
-            
-        }
-
-        /******************************************************/
-        //  FUNCIÓN QUE SIRVE PARA MOSTRAR TODOS LOS USUARIOS
-        /******************************************************/
-
-        static public function  mostrarUsuarios($itemA, $valorA){
-            $tabla = 'usuarios';
-            $respuesta = ModeloUsuarios::MostrarUsuarios($tabla, $itemA, $valorA);
-
-            return $respuesta;
-        }
-
-            /******************************************************/
-        //  FUNCIÓN QUE SIRVE PARA EDITAR LOS DATOS DE LOS USUAIROS
-        /***********************************************************/
-
-
-        static public function editarUsuario(){
-            if (isset($_POST["editarNombre"])){
-                $rutaActual =  $_POST["fotoActual"];
-                
-                if(isset($_FILES["editarFoto"]["tmp_name"])){
-                    list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
-
-                    $nuevoAncho = 500;
-                    $nuevoAlto = 500;
-                    $identificador = gmdate('Ymdhis', time());
-
-                    $directorio = "views/img/usuarios/$identificador";
-
-                    if(!empty($_POST["fotoActual"])){
-
-						unlink($_POST["fotoActual"]);
-
-					}else{
-
-						mkdir($directorio, 0755);
-
-                    }
-                    
-                    if($_FILES["editarFoto"]["type"] == "image/jpeg"){
-
-                        //GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-
-                        $aleatorio = mt_rand(100,999);
-
-                        $ruta = $directorio."/".$aleatorio.".jpg";
-
-                        $origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);						
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagejpeg($destino, $ruta);
-
-                    }
-
-                    if($_FILES["editarFoto"]["type"] == "image/png"){
-
-                        //GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                        
-                        $aleatorio = mt_rand(100,999);
-
-                        $ruta = $directorio."/".$aleatorio.".png";
-
-                        $origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);						
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagepng($destino, $ruta);
-
-                    }
-
-
-                }
-
-                $tabla = "usuarios";
-
-                $datos = array("nombre" => $_POST["editarNombre"],
-                               "apellidoPaterno" => $_POST["editarApellidoPaterno"],
-                               "apellidoMaterno" => $_POST["editarApellidoMaterno"],
-                               "telefono" => $_POST["editarTelefono"],
-                               "correo" => $_POST["editarEmail"],
-							   "foto" => $ruta);
-
-				$respuesta = ModeloUsuarios::editarUsuario($tabla, $datos);
-                
-                if($respuesta == 'ok'){
-
-                    echo "<script>
-
-                    Swal.fire(
-                        'OK!',
-                        'Se actualizaron correctamente los datos del usuario!',
-                        'success'
-                    ).then((result) => {
-                        if(result.value){
-                        
-                            window.location = 'listarUsuarios';
-                        }
-                    });
-
-                    </script>";
-
-                 }else{
-                    echo "<script>
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'Ocurrio un error al actualizar el usuario!',
-                    }).then((result) => {
-                        if(result.value){
-                            window.location = 'listarUsuarios';
-                        }
-                    });
-                
-                    </script>";
-
-                }
+               
             }
         }
 
@@ -542,11 +318,10 @@
 
 	static public function borrarUsuario(){
 
-		if(isset($_GET["idUsuario"])){
+		if(isset($_GET["idUsuarioElimina"])){
 
-            $tabla2 ="usuarios";
-            $tabla1 ="transmisiones";
-			$id = $_GET["idUsuario"];
+            $tabla1 ="usuarios";
+			$id = $_GET["idUsuarioElimina"];
 
 			if($_GET["fotoUsuario"] != ""){
 
@@ -555,7 +330,7 @@
 
 			}
 
-			$respuesta = ModeloUsuarios::borrarUsuario($tabla1,$tabla2, $id);
+			$respuesta = ModeloUsuarios::borrarUsuario($tabla1, $id);
 
 			if($respuesta == "ok"){
 
@@ -580,13 +355,22 @@
                     Swal.fire({
                         type: 'error',
                         title: 'Oops...',
-                        text: 'Ocurrio un error al actualizar el usuario!',
+                        text: 'Ocurrio un error al borrar el usuario!',
                     });
                 </script>";
             }	
 
 		}
 
+    }
+    
+    static public function mostrarUsuarios($item, $valor){
+
+		$tabla = "usuarios";
+
+		$respuesta =  ModeloUsuarios::MostrarUsuarios($tabla, $item, $valor);
+
+		return $respuesta;
 	}
     
     }

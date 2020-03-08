@@ -14,14 +14,14 @@ $(document).on("click", ".btnEliminarTransmision", function(){
     var idTransmision = $(this).attr("idTransmision");
    
     Swal.fire({
-        title: '¿Está seguro de borrar el usuario?',
+        title: '¿Está seguro de borrar la transmisión?',
         text: "¡Si no lo está puede cancelar la accíón!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, borrar usuario!'
+        confirmButtonText: 'Si, borrar transmision!'
       }).then((result) => {
         if (result.value) {
             window.location = "index.php?ruta=modificarTransmisiones&idTransmision="+idTransmision;

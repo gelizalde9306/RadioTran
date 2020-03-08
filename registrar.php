@@ -14,7 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>Incidencias La Comer</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.min.css">
@@ -61,30 +61,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
       <form role="form" method="post" enctype="multipart/form-data">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Ingrese su nombre" id="nuevoUsuario" name="nuevoUsuario" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>  
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Ingrese su apellido Paterno" name="nuevoPaterno" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div> 
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Ingrese su apellido Materno" name="nuevoMaterno" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div> 
-        <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Correo electrónico" name="nuevoCorreo" required>
           <div class="input-group-append">
             <div class="input-group-text">
@@ -101,14 +77,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
         
-        <div class="input-group mb-3">
-          <input type="tel" class="form-control" placeholder="Ingrese su telefono" name="nuevoTelefono"   pattern="[0-9]{10}" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-phone"></span>
-            </div>
-          </div>
-        </div> 
         <div class="form-group">              
                 <div class="panel">SUBIR FOTO</div>
                 <input type="file" class="nuevaFotoUsuario" name="nuevaFotoUsuario" required>

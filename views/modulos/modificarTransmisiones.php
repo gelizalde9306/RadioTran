@@ -55,7 +55,6 @@
                     <td>
         
                       <div class="btn-group">
-                          
                          <button class="btn btn-danger btnEliminarTransmision" idTransmision="'.$value["id_transmision"].'"><i class="fa fa-times"></i></button>
         
                       </div>  

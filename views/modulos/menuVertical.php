@@ -4,7 +4,7 @@
     <a href="inicio" class="brand-link">
       <img src="views/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">IncidenciasCEDIS</span>
     </a>
 
     <!-- Sidebar -->
@@ -23,7 +23,7 @@
           
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION["nombreCompleto"];  ?></a>
+          <a href="#" class="d-block"><?php echo $_SESSION["correo"];  ?></a>
         </div>
       </div>
 
@@ -84,7 +84,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -113,6 +113,33 @@
               </li>
             
              </ul>
+          </li> -->
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                  Incidencias
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="registroIncidencia" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Registrar Indicencia </p>
+                </a>
+              </li>
+             </ul>
+             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="estadisticasIncidencias" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Estadisticas Indicencias </p>
+                </a>
+              </li>
+             </ul>
+             
           </li>
 
         </ul>

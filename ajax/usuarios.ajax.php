@@ -38,14 +38,8 @@ class AjaxUsuarios{
 		$item2 = "id_usuario";
 		$valor2 = $this->activarId;
 
-		$fecha = date('Y-m-d');
-		$hora = date('H:i:S');
-		$fechaCompleta = $fecha.' '.$hora;
-
-		$item3 = "fechaModificacion";
-		$valor3 = $fechaCompleta;
-
-		$respuesta = ModeloUsuarios::actualizarUsuario($tabla, $item1, $valor1,$item2,$valor2,$item3,$valor3);
+		
+		$respuesta = ModeloUsuarios::actualizarUsuario($tabla, $item1, $valor1,$item2,$valor2);
 
 	}
 

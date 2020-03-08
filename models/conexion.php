@@ -7,7 +7,7 @@
         /****************************************/
 
         static public function conectar(){
-            $link = new PDO("mysql:host=localhost;dbname=miradio",
+            $link = new PDO("mysql:host=localhost;dbname=micedis",
                             "root",
                             ""
                             );
